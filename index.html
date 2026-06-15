@@ -2033,6 +2033,7 @@ const LAND_PRICE=[0,0,0,0,300,500,800,1200,1800,2500,3500,5000,7000,10000,14000,
 function getLandPrice(slot){return LAND_PRICE[slot]||35000;}
 function buyLand(slot){
   if(G.maxPlots>slot){toast('ปลดล็อคแล้ว!','#555');return;}
+  if(slot!==G.maxPlots){toast('ต้องปลดล็อคแปลงก่อนหน้าก่อน!','#e65100');return;}
   const price=getLandPrice(slot);
   if(!confirm(`ซื้อแปลงที่ ${slot+1} ราคา ${price.toLocaleString()} LE ใช่ไหม?`)) return;
   if(!spend(price)) return;
