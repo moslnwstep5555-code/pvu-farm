@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PVU Farm Simulator 2021 — v5 Element Edition</title>
+<title>🐱 คาราแมว FARM — Caramew Farm</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@700&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -13,7 +13,13 @@ body{font-family:'Inter','Segoe UI',Tahoma,sans-serif;background:#060e06;color:#
 .pvu-nav::-webkit-scrollbar{height:4px}
 .pvu-nav::-webkit-scrollbar-thumb{background:rgba(102,194,68,.4);border-radius:3px}
 .pvu-nav>*{flex-shrink:0}
-.pvu-logo{font-size:16px;font-weight:900;letter-spacing:1px;color:#66c244;margin-right:14px;white-space:nowrap;text-shadow:0 0 10px rgba(102,194,68,.6);display:flex;align-items:center;gap:5px}
+.pvu-logo{font-size:17px;font-weight:900;letter-spacing:.3px;margin-right:14px;white-space:nowrap;display:flex;align-items:center;gap:4px}
+.brand-cat{font-size:1.05em;filter:drop-shadow(0 1px 2px rgba(0,0,0,.4));animation:catBob 3.2s ease-in-out infinite;display:inline-block}
+@keyframes catBob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-2px) rotate(3deg)}}
+.brand-cara{background:linear-gradient(135deg,#ffcc80,#ff7043 55%,#ffd54f);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 1px 2px rgba(255,112,67,.45))}
+.brand-farm{background:linear-gradient(135deg,#c5e1a5,#66bb6a 60%,#43a047);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:900;margin-left:2px}
+.brand-paw{font-size:.72em;filter:drop-shadow(0 0 4px rgba(255,183,77,.6));animation:pawWiggle 2.6s ease-in-out infinite;display:inline-block}
+@keyframes pawWiggle{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(16deg)}}
 .nav-link{padding:0 11px;height:46px;display:flex;align-items:center;gap:4px;font-size:11px;color:#5a7a5a;cursor:pointer;transition:color .2s;border-bottom:3px solid transparent;margin-bottom:-2px}
 .nav-link:hover{color:#a5d6a7}.nav-link.active{color:#fff;border-bottom-color:#66c244}
 .nav-sep{width:1px;height:20px;background:rgba(255,255,255,.07);margin:0 2px}
@@ -44,9 +50,34 @@ body{font-family:'Inter','Segoe UI',Tahoma,sans-serif;background:#060e06;color:#
 @keyframes waveAnim{0%,100%{transform:scaleX(1.04) translateY(0)}50%{transform:scaleX(.96) translateY(-4px)}}
 .sea-shimmer{position:absolute;left:-100%;right:0;height:28%;bottom:35%;background:repeating-linear-gradient(90deg,transparent 0%,rgba(255,255,255,.05) 3%,transparent 6%);animation:shimmerH 8s linear infinite;pointer-events:none;will-change:transform}
 @keyframes shimmerH{from{transform:translateX(0)}to{transform:translateX(50%)}}
+/* ══ DAY / NIGHT CYCLE ══ */
+#dn-veil{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;background:linear-gradient(to bottom,#0a1840 0%,#142a5c 45%,#1c2a44 66%,#0d1830 100%);transition:opacity 1.1s linear;mix-blend-mode:multiply}
+#dn-sunset{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;background:linear-gradient(to bottom,#ff9e57 0%,#ff7e5f 30%,transparent 60%);transition:opacity 1.1s linear;mix-blend-mode:screen}
+#dn-sun{position:absolute;width:46px;height:46px;border-radius:50%;z-index:1;pointer-events:none;left:10%;top:60%;background:radial-gradient(circle at 50% 50%,#fff8e1 0%,#ffe082 40%,#ffb300 75%,rgba(255,179,0,0) 100%);box-shadow:0 0 34px 10px rgba(255,200,60,.6);transition:left 1.1s linear,top 1.1s linear,opacity 1.1s linear}
+#dn-moon{position:absolute;width:34px;height:34px;border-radius:50%;z-index:1;pointer-events:none;left:10%;top:60%;opacity:0;background:radial-gradient(circle at 38% 38%,#fff 0%,#eceff7 45%,#c5cae9 100%);box-shadow:0 0 22px 6px rgba(197,202,233,.45);transition:left 1.1s linear,top 1.1s linear,opacity 1.1s linear}
+#dn-moon::after{content:'';position:absolute;width:11px;height:11px;border-radius:50%;background:rgba(160,170,200,.35);top:7px;left:7px;box-shadow:14px 9px 0 -2px rgba(160,170,200,.3),6px 18px 0 -3px rgba(160,170,200,.28)}
+#dn-stars{position:absolute;inset:0;height:62%;z-index:1;pointer-events:none;opacity:0;transition:opacity 1.4s linear;background-image:radial-gradient(1.4px 1.4px at 12% 18%,#fff,transparent),radial-gradient(1.2px 1.2px at 28% 42%,#fff,transparent),radial-gradient(1.5px 1.5px at 44% 12%,#fff,transparent),radial-gradient(1px 1px at 58% 33%,#fff,transparent),radial-gradient(1.6px 1.6px at 70% 20%,#fff,transparent),radial-gradient(1.2px 1.2px at 82% 44%,#fff,transparent),radial-gradient(1.3px 1.3px at 90% 16%,#fff,transparent),radial-gradient(1px 1px at 36% 56%,#fff,transparent),radial-gradient(1.4px 1.4px at 64% 52%,#fff,transparent),radial-gradient(1.1px 1.1px at 7% 38%,#fff,transparent);animation:starTwinkle 4s ease-in-out infinite}
+@keyframes starTwinkle{0%,100%{filter:brightness(1)}50%{filter:brightness(.55)}}
+#dn-fireflies{position:absolute;inset:0;height:72%;z-index:3;pointer-events:none;opacity:0;transition:opacity 1.6s linear}
+.firefly{position:absolute;width:5px;height:5px;border-radius:50%;background:radial-gradient(circle,#fff,var(--fc,#ffe082) 42%,transparent 75%);box-shadow:0 0 9px 2px var(--fg,rgba(255,224,130,.75));animation:fireflyDrift var(--fd,9s) ease-in-out infinite,fireflyBlink var(--fb,2.4s) ease-in-out infinite}
+@keyframes fireflyDrift{0%{transform:translate(0,0)}25%{transform:translate(22px,-16px)}50%{transform:translate(-14px,-26px)}75%{transform:translate(16px,-12px)}100%{transform:translate(0,0)}}
+@keyframes fireflyBlink{0%,100%{opacity:.25}50%{opacity:1}}
+/* ══ LIVING-FARM CRITTERS ══ */
+.critter{will-change:transform}
+@keyframes critterFly{0%{transform:translateX(0) translateY(0)}20%{transform:translateX(21vw) translateY(-13px)}40%{transform:translateX(42vw) translateY(8px)}60%{transform:translateX(63vw) translateY(-11px)}80%{transform:translateX(84vw) translateY(7px)}100%{transform:translateX(106vw) translateY(0)}}
+@keyframes critterFlyR{0%{transform:translateX(0) translateY(0) scaleX(-1)}20%{transform:translateX(-21vw) translateY(-13px) scaleX(-1)}40%{transform:translateX(-42vw) translateY(8px) scaleX(-1)}60%{transform:translateX(-63vw) translateY(-11px) scaleX(-1)}80%{transform:translateX(-84vw) translateY(7px) scaleX(-1)}100%{transform:translateX(-106vw) translateY(0) scaleX(-1)}}
+@keyframes critterHop{0%{transform:translateX(0) translateY(0)}10%{transform:translateX(8vw) translateY(-18px)}20%{transform:translateX(16vw) translateY(0)}30%{transform:translateX(24vw) translateY(-18px)}40%{transform:translateX(32vw) translateY(0)}50%{transform:translateX(42vw) translateY(-18px)}60%{transform:translateX(52vw) translateY(0)}70%{transform:translateX(62vw) translateY(-16px)}80%{transform:translateX(74vw) translateY(0)}90%{transform:translateX(88vw) translateY(-14px)}100%{transform:translateX(106vw) translateY(0)}}
 
 /* ══ SCENERY: big trees + hanging vines ══ */
 .scene-deco{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+/* ══ THAI FARM DECO: rice, hay, buffalo ══ */
+.thai-farm-deco{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.thai-farm-deco>div{position:absolute;filter:drop-shadow(0 4px 6px rgba(0,0,0,.3))}
+.rice-cluster{transform-origin:50% 100%;animation:riceSway 3.8s ease-in-out infinite var(--rd,0s)}
+@keyframes riceSway{0%,100%{transform:rotate(-2.6deg)}50%{transform:rotate(2.6deg)}}
+.buffalo{animation:buffaloIdle 5s ease-in-out infinite}
+@keyframes buffaloIdle{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.5px)}}
+@media(max-width:680px){.thai-farm-deco .buffalo,.thai-farm-deco .hay-bale{transform:scale(.7)}.thai-farm-deco .rice-cluster{transform:scale(.75)}}
 .big-tree{position:absolute;bottom:0;filter:drop-shadow(0 6px 10px rgba(0,0,0,.25))}
 .big-tree.bt-left{left:-46px;opacity:.92;transform:scale(1.05);transform-origin:bottom left}
 .big-tree.bt-right{right:-30px;opacity:.8;transform:scaleX(-1) scale(.92);transform-origin:bottom right}
@@ -311,6 +342,12 @@ body{font-family:'Inter','Segoe UI',Tahoma,sans-serif;background:#060e06;color:#
 /* ══ COMBO ══ */
 .combo-toast{position:fixed;top:56px;left:50%;transform:translateX(-50%);z-index:500;background:rgba(0,0,0,.85);border:2px solid #f9a825;border-radius:14px;padding:5px 22px;color:#ffcc02;font-size:15px;font-weight:900;pointer-events:none;display:none;text-shadow:0 0 12px #f9a825;letter-spacing:2px;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
 .combo-toast.on{display:block;animation:comboPop .22s ease}
+.coin-pop{position:fixed;z-index:600;pointer-events:none;font-size:20px;animation:coinPop .85s cubic-bezier(.3,.7,.4,1) var(--cd,0s) forwards;filter:drop-shadow(0 2px 3px rgba(0,0,0,.4))}
+@keyframes coinPop{0%{transform:translate(0,0) scale(.4) rotate(0);opacity:0}18%{opacity:1;transform:translate(calc(var(--cx,0px)*.5),-34px) scale(1.15) rotate(180deg)}100%{transform:translate(var(--cx,0px),-78px) scale(.7) rotate(360deg);opacity:0}}
+@keyframes screenShakeK{0%,100%{transform:translate(0,0)}20%{transform:translate(-4px,2px)}40%{transform:translate(4px,-2px)}60%{transform:translate(-3px,-2px)}80%{transform:translate(3px,2px)}}
+@keyframes screenShakeBigK{0%,100%{transform:translate(0,0) rotate(0)}15%{transform:translate(-8px,4px) rotate(-.5deg)}30%{transform:translate(8px,-4px) rotate(.5deg)}45%{transform:translate(-7px,-3px) rotate(-.4deg)}60%{transform:translate(7px,3px) rotate(.4deg)}80%{transform:translate(-4px,2px)}}
+.screen-shake{animation:screenShakeK .4s ease}
+.screen-shake-big{animation:screenShakeBigK .42s ease}
 @keyframes comboPop{0%{transform:translateX(-50%) scale(1.3)}100%{transform:translateX(-50%) scale(1)}}
 /* ══ BOSS ══ */
 .boss-bar{position:fixed;top:56px;left:50%;transform:translateX(-50%);z-index:400;background:linear-gradient(135deg,#880e4f,#b71c1c);border:2px solid #ef5350;border-radius:14px;padding:10px 18px;display:none;min-width:290px;text-align:center;box-shadow:0 0 28px rgba(183,28,28,.55)}
@@ -995,22 +1032,50 @@ body{font-family:'Inter','Segoe UI',Tahoma,sans-serif;background:#060e06;color:#
 .ppu-up{color:#4ade80}.ppu-dn{color:#f87171}
 
 /* ══ LOGIN SYSTEM ══ */
-.login-ov{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:99999;display:flex;align-items:center;justify-content:center;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:opacity .3s}
+.login-ov{position:fixed;inset:0;background:rgba(0,8,18,.96);z-index:99999;display:flex;align-items:center;justify-content:center;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);opacity:0;pointer-events:none;transition:opacity .35s}
 .login-ov.on{opacity:1;pointer-events:all}
-.login-box{background:linear-gradient(160deg,#0a1628,#0d2040,#071018);border:1px solid rgba(100,180,255,.18);border-radius:22px;padding:34px 38px;width:340px;max-width:92vw;box-shadow:0 24px 70px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.05)}
-.login-logo{text-align:center;font-size:30px;font-weight:900;color:#ffd700;letter-spacing:2px;margin-bottom:6px}
-.login-sub{text-align:center;font-size:12px;color:rgba(255,255,255,.35);margin-bottom:22px}
-.login-tabs{display:flex;gap:3px;background:rgba(255,255,255,.05);border-radius:12px;padding:3px;margin-bottom:18px}
-.login-tab{flex:1;padding:9px;border:none;background:transparent;color:rgba(255,255,255,.4);border-radius:9px;cursor:pointer;font-size:13px;font-weight:700;transition:.2s}
-.login-tab.on{background:rgba(100,180,255,.18);color:#fff}
-.login-inp{width:100%;box-sizing:border-box;padding:11px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-size:14px;margin-bottom:10px;outline:none;transition:.2s}
-.login-inp:focus{border-color:rgba(100,180,255,.5);background:rgba(100,180,255,.06)}
-.login-btn{width:100%;padding:13px;background:linear-gradient(135deg,#0277bd,#01579b);border:none;border-radius:11px;color:#fff;font-size:15px;font-weight:800;cursor:pointer;margin-top:4px;transition:.2s;letter-spacing:.5px}
-.login-btn:hover{filter:brightness(1.15);transform:translateY(-1px)}
-.login-err{color:#ef9a9a;font-size:12px;text-align:center;margin-top:10px;min-height:18px}
-.login-note{font-size:11px;color:rgba(255,255,255,.28);text-align:center;margin-top:14px;line-height:1.7}
-.free-limits{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 14px;margin-top:14px;font-size:11px;color:rgba(255,255,255,.45);line-height:1.8}
-.free-limits strong{color:rgba(255,180,50,.7)}
+/* Outer scene wrapper for floating deco icons */
+.login-scene{position:relative}
+.ldeco{position:absolute;font-size:20px;pointer-events:none;animation:ldecoFloat 4s ease-in-out infinite;z-index:0;opacity:.7;filter:drop-shadow(0 0 5px rgba(0,200,220,.45))}
+@keyframes ldecoFloat{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-9px) rotate(7deg)}}
+/* Main box — deep teal with gold ornamental frame */
+.login-box{position:relative;background:linear-gradient(170deg,#072030 0%,#041a2c 55%,#051e32 100%);border:2px solid rgba(185,148,45,.52);border-radius:24px;padding:24px 28px 22px;width:340px;max-width:92vw;box-shadow:0 0 0 5px rgba(0,0,0,.38),0 0 0 6px rgba(160,130,40,.1),0 0 55px rgba(0,130,175,.18),inset 0 0 60px rgba(0,100,140,.07),0 28px 80px rgba(0,0,0,.88);z-index:1;overflow:visible}
+.login-box::before{content:'✦';position:absolute;top:-2px;left:9px;font-size:13px;color:#c8a432;opacity:.85;line-height:1;pointer-events:none}
+.login-box::after{content:'✦';position:absolute;top:-2px;right:9px;font-size:13px;color:#c8a432;opacity:.85;line-height:1;pointer-events:none}
+.lb-corner-bl{position:absolute;bottom:-2px;left:9px;font-size:13px;color:#c8a432;opacity:.85;pointer-events:none;z-index:2;line-height:1}
+.lb-corner-br{position:absolute;bottom:-2px;right:9px;font-size:13px;color:#c8a432;opacity:.85;pointer-events:none;z-index:2;line-height:1}
+.lb-topline{position:absolute;top:0;left:38px;right:38px;height:2px;background:linear-gradient(90deg,transparent,rgba(0,215,235,.6),transparent);border-radius:2px;pointer-events:none}
+.lb-bottomline{position:absolute;bottom:0;left:38px;right:38px;height:1px;background:linear-gradient(90deg,transparent,rgba(180,148,45,.4),transparent);border-radius:1px;pointer-events:none}
+/* ── Logo ── */
+.login-logo{display:flex;flex-direction:column;align-items:center;gap:4px;margin-bottom:8px}
+.ll-mascot{width:142px;height:122px;display:block;margin:0 auto 2px;filter:drop-shadow(0 5px 16px rgba(0,0,0,.6));animation:catBob 4s ease-in-out infinite}
+.ll-title{font-size:31px;font-weight:900;letter-spacing:2px;line-height:1;background:linear-gradient(160deg,#ffe9a0 0%,#f5c030 28%,#fff5cc 52%,#c89020 78%,#ffe080 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 8px rgba(200,150,20,.55))}
+.ll-divider{display:flex;align-items:center;gap:6px;width:100%;padding:0 10px;box-sizing:border-box}
+.ll-divider::before,.ll-divider::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(180,145,45,.48),transparent)}
+.ll-divider-txt{font-size:11px;color:rgba(180,145,45,.7);letter-spacing:2px;white-space:nowrap}
+.ll-farm{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:900;letter-spacing:5px;padding:5px 18px 5px 22px;border-radius:22px;background:linear-gradient(135deg,#1b5e20,#2e7d32 60%,#388e3c);border:1px solid rgba(100,200,100,.22);box-shadow:0 4px 16px rgba(40,120,40,.42),inset 0 1px 0 rgba(255,255,255,.16)}
+.ll-farm-txt{background:linear-gradient(#f0fff0,#b8f5b8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ll-wheat{font-size:14px;letter-spacing:0;animation:catBob 3.4s ease-in-out infinite}
+/* Subtitle */
+.login-sub{text-align:center;font-size:11px;color:rgba(130,200,220,.5);margin-bottom:15px;letter-spacing:.3px}
+/* Tabs */
+.login-tabs{display:flex;gap:4px;background:rgba(0,55,85,.45);border:1px solid rgba(0,155,185,.17);border-radius:13px;padding:3px;margin-bottom:13px}
+.login-tab{flex:1;padding:8px 4px;border:none;background:transparent;color:rgba(130,200,210,.5);border-radius:10px;cursor:pointer;font-size:12px;font-weight:700;transition:.2s;font-family:inherit}
+.login-tab.on{background:linear-gradient(135deg,rgba(0,148,182,.36),rgba(0,88,128,.4));color:#7de8f5;box-shadow:0 2px 8px rgba(0,135,172,.28),inset 0 1px 0 rgba(255,255,255,.07);border:1px solid rgba(0,175,208,.2)}
+/* Input fields with icon */
+.login-inp-wrap{position:relative;margin-bottom:10px}
+.login-inp-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:15px;pointer-events:none;z-index:1;line-height:1}
+.login-inp{width:100%;box-sizing:border-box;padding:11px 14px 11px 38px;background:rgba(0,38,62,.65);border:1px solid rgba(0,160,192,.22);border-radius:11px;color:#b8eef5;font-size:14px;outline:none;transition:.2s;font-family:inherit}
+.login-inp:focus{border-color:rgba(0,198,228,.5);background:rgba(0,52,82,.7);box-shadow:0 0 0 2px rgba(0,168,210,.13)}
+.login-inp::placeholder{color:rgba(100,168,188,.4)}
+/* Login button — teal gem crystal */
+.login-btn{width:100%;padding:13px;background:linear-gradient(135deg,#007c88 0%,#005860 50%,#007c88 100%);border:1px solid rgba(0,205,228,.3);border-radius:12px;color:#d0f8ff;font-size:15px;font-weight:800;cursor:pointer;margin-top:2px;transition:.2s;letter-spacing:.5px;font-family:inherit;box-shadow:0 6px 22px rgba(0,135,158,.42),0 2px 0 rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.13)}
+.login-btn:hover{filter:brightness(1.2);transform:translateY(-1px);box-shadow:0 9px 28px rgba(0,158,182,.52),0 2px 0 rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.17)}
+.login-btn:active{transform:translateY(0);filter:brightness(.92)}
+.login-err{color:#f48fb1;font-size:12px;text-align:center;margin-top:8px;min-height:18px}
+.login-note{font-size:10.5px;color:rgba(100,170,190,.28);text-align:center;margin-top:12px;line-height:1.7}
+.free-limits{background:rgba(0,48,72,.42);border:1px solid rgba(0,155,185,.13);border-radius:10px;padding:10px 14px;margin-top:14px;font-size:11px;color:rgba(100,172,192,.5);line-height:1.8}
+.free-limits strong{color:rgba(0,208,192,.68)}
 .user-chip{background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.2);border-radius:20px;padding:3px 10px 3px 8px;font-size:11px;color:#ffd700;cursor:pointer;display:flex;align-items:center;gap:5px;transition:.2s;white-space:nowrap}
 .user-chip:hover{background:rgba(255,215,0,.18)}
 .locked-feature{opacity:.3!important;cursor:not-allowed!important}
@@ -1155,6 +1220,13 @@ body{font-family:'Inter','Segoe UI',Tahoma,sans-serif;background:#060e06;color:#
 .inf-core{animation:infCorePulse 1.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
 .inf-ring{animation:infRingSpin 7s linear infinite;transform-box:fill-box;transform-origin:35px 50px}
 @keyframes infFlashAnim{0%{opacity:0;transform:scale(.5)}30%{opacity:1}100%{opacity:0;transform:scale(1.6)}}
+/* ══ LUCKY WHEEL ══ */
+.wheel-frame{position:relative;display:flex;justify-content:center;align-items:center;padding:6px;margin:4px 0}
+.wheel-pointer{position:absolute;top:-8px;left:50%;transform:translateX(-50%);z-index:5;font-size:26px;color:#ffd700;text-shadow:0 2px 4px rgba(0,0,0,.6);line-height:1;pointer-events:none}
+#wheel-stage{filter:drop-shadow(0 6px 18px rgba(0,0,0,.5))}
+.wheel-spin-btn{margin-top:16px;padding:13px 34px;background:linear-gradient(135deg,#ffca28,#e65100);color:#1a1018;border:none;border-radius:50px;font-size:15px;font-weight:900;cursor:pointer;box-shadow:0 4px 16px rgba(255,160,0,.45);transition:transform .1s}
+.wheel-spin-btn:hover{transform:scale(1.04)}.wheel-spin-btn:active{transform:scale(.96)}
+.wheel-spin-btn:disabled{opacity:.6;cursor:default;transform:none}
 /* ══ SEASONAL ELEMENT BONUS ══ */
 .season-bonus-strip{display:flex;gap:3px;align-items:center;font-size:8px}
 .seb-plus{background:rgba(76,175,80,.2);border:1px solid rgba(76,175,80,.4);color:#a5d6a7;border-radius:4px;padding:1px 5px;font-weight:bold}
@@ -1247,7 +1319,7 @@ body{font-family:'Inter','Segoe UI',Tahoma,sans-serif;background:#060e06;color:#
 <body>
 
 <nav class="pvu-nav">
-  <div class="pvu-logo">🌻 PVU <span style="color:#fff;font-weight:400">FARM</span></div>
+  <div class="pvu-logo"><span class="brand-cat">🐱</span><span class="brand-cara">คาราแมว</span><span class="brand-farm">FARM</span><span class="brand-paw">🐾</span></div>
   <div class="nav-sep"></div>
   <div class="nav-link">📊 <span data-i18n="nav_dashboard">Dashboard</span></div>
   <div class="nav-link" style="cursor:pointer" onclick="openMarket()">🛍 <span data-i18n="nav_market">Marketplace</span></div>
@@ -1306,6 +1378,13 @@ body{font-family:'Inter','Segoe UI',Tahoma,sans-serif;background:#060e06;color:#
 <div class="game-world">
   <div id="wx-fx-layer" style="position:fixed;inset:0;pointer-events:none;z-index:9;overflow:hidden"></div>
   <div class="beach-bg">
+    <!-- ░░ DAY/NIGHT CYCLE ░░ -->
+    <div id="dn-stars"></div>
+    <div id="dn-sun"></div>
+    <div id="dn-moon"></div>
+    <div id="dn-sunset"></div>
+    <div id="dn-veil"></div>
+    <div id="dn-fireflies"></div>
     <canvas id="wx-canvas"></canvas>
     <div class="wave"></div><div class="wave"></div><div class="wave"></div><div class="sea-shimmer"></div>
     <div class="aurora-layer" id="aurora-layer"><div class="aurora-band"></div><div class="aurora-band"></div><div class="aurora-band"></div></div>
@@ -1387,6 +1466,74 @@ body{font-family:'Inter','Segoe UI',Tahoma,sans-serif;background:#060e06;color:#
             <path d="M18 0 Q10 60 20 130 Q30 195 12 260" fill="none" stroke="#388e3c" stroke-width="4" stroke-linecap="round"/>
             <g fill="#81c784"><ellipse cx="8" cy="46" rx="10" ry="5.5" transform="rotate(-30 8 46)"/><ellipse cx="27" cy="88" rx="10" ry="5.5" transform="rotate(32 27 88)"/><ellipse cx="10" cy="134" rx="9" ry="5" transform="rotate(-28 10 134)"/><ellipse cx="26" cy="180" rx="9" ry="5" transform="rotate(30 26 180)"/><ellipse cx="12" cy="224" rx="8" ry="4.5" transform="rotate(-26 12 224)"/></g>
             <circle cx="12" cy="258" r="4.5" fill="#ec407a"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- ░░ THAI FARM DECO — rice ears, hay bales, water buffalo ░░ -->
+      <div class="thai-farm-deco">
+        <!-- RICE CLUSTER (left) -->
+        <div class="rice-cluster" style="left:15%;bottom:2%">
+          <svg viewBox="0 0 80 100" width="66" height="83">
+            <ellipse cx="40" cy="97" rx="20" ry="4" fill="#000" opacity=".15"/>
+            <g stroke="#9ccc65" stroke-width="2.6" fill="none" stroke-linecap="round">
+              <path d="M40 96 Q33 60 22 32"/><path d="M40 96 Q40 56 38 22"/><path d="M40 96 Q47 58 58 32"/><path d="M40 96 Q30 66 15 46"/><path d="M40 96 Q51 66 65 48"/>
+            </g>
+            <g fill="#f9a825" stroke="#e0820b" stroke-width=".5">
+              <g transform="translate(22,32) rotate(-18)"><ellipse cx="0" cy="0" rx="3" ry="5.5"/><ellipse cx="-3" cy="6" rx="2.6" ry="4.6"/><ellipse cx="2" cy="9" rx="2.6" ry="4.6"/><ellipse cx="-2" cy="13" rx="2.2" ry="4"/><ellipse cx="1" cy="17" rx="1.8" ry="3.4"/></g>
+              <g transform="translate(38,22)"><ellipse cx="0" cy="0" rx="3.2" ry="6"/><ellipse cx="-3" cy="7" rx="2.8" ry="5"/><ellipse cx="3" cy="9" rx="2.8" ry="5"/><ellipse cx="-2" cy="15" rx="2.4" ry="4.3"/><ellipse cx="2" cy="18" rx="2" ry="3.6"/></g>
+              <g transform="translate(58,32) rotate(18)"><ellipse cx="0" cy="0" rx="3" ry="5.5"/><ellipse cx="3" cy="6" rx="2.6" ry="4.6"/><ellipse cx="-2" cy="9" rx="2.6" ry="4.6"/><ellipse cx="2" cy="13" rx="2.2" ry="4"/><ellipse cx="-1" cy="17" rx="1.8" ry="3.4"/></g>
+              <g transform="translate(15,46) rotate(-34)" opacity=".9"><ellipse cx="0" cy="0" rx="2.6" ry="5"/><ellipse cx="-2" cy="6" rx="2.2" ry="4"/><ellipse cx="2" cy="9" rx="2" ry="3.6"/></g>
+              <g transform="translate(65,48) rotate(34)" opacity=".9"><ellipse cx="0" cy="0" rx="2.6" ry="5"/><ellipse cx="2" cy="6" rx="2.2" ry="4"/><ellipse cx="-2" cy="9" rx="2" ry="3.6"/></g>
+            </g>
+          </svg>
+        </div>
+        <!-- RICE CLUSTER (right, smaller) -->
+        <div class="rice-cluster" style="right:3%;bottom:3%;--rd:.7s">
+          <svg viewBox="0 0 80 100" width="54" height="68">
+            <ellipse cx="40" cy="97" rx="18" ry="4" fill="#000" opacity=".14"/>
+            <g stroke="#aed581" stroke-width="2.6" fill="none" stroke-linecap="round">
+              <path d="M40 96 Q34 60 24 34"/><path d="M40 96 Q40 56 39 24"/><path d="M40 96 Q46 58 56 34"/>
+            </g>
+            <g fill="#ffb300" stroke="#e0820b" stroke-width=".5">
+              <g transform="translate(24,34) rotate(-16)"><ellipse cx="0" cy="0" rx="3" ry="5.5"/><ellipse cx="-3" cy="6" rx="2.6" ry="4.6"/><ellipse cx="2" cy="9" rx="2.4" ry="4.2"/><ellipse cx="-1" cy="13" rx="2" ry="3.6"/></g>
+              <g transform="translate(39,24)"><ellipse cx="0" cy="0" rx="3.2" ry="6"/><ellipse cx="-3" cy="7" rx="2.8" ry="5"/><ellipse cx="3" cy="9" rx="2.6" ry="4.6"/><ellipse cx="-1" cy="15" rx="2.2" ry="4"/></g>
+              <g transform="translate(56,34) rotate(16)"><ellipse cx="0" cy="0" rx="3" ry="5.5"/><ellipse cx="3" cy="6" rx="2.6" ry="4.6"/><ellipse cx="-2" cy="9" rx="2.4" ry="4.2"/><ellipse cx="1" cy="13" rx="2" ry="3.6"/></g>
+            </g>
+          </svg>
+        </div>
+        <!-- HAY BALES -->
+        <div class="hay-bale" style="left:54%;bottom:2%">
+          <svg viewBox="0 0 110 92" width="96" height="80">
+            <ellipse cx="55" cy="88" rx="48" ry="6" fill="#000" opacity=".18"/>
+            <rect x="6" y="34" width="98" height="52" rx="26" fill="#d9b15a" stroke="#a9842f" stroke-width="2.5"/>
+            <path d="M32 36 Q27 60 33 84 M56 34 Q53 60 56 86 M80 36 Q85 60 78 84" stroke="#bf9540" stroke-width="2" fill="none" opacity=".7"/>
+            <g stroke="#c8a24a" stroke-width="1" opacity=".55"><path d="M12 50 l6 -2"/><path d="M98 48 l-6 -2"/><path d="M14 66 l6 -1"/><path d="M96 64 l-6 -1"/></g>
+            <g stroke="#e8c46a" stroke-width="1.7" stroke-linecap="round"><path d="M40 34 l-2 -7"/><path d="M55 33 l1 -8"/><path d="M70 34 l3 -7"/></g>
+            <!-- small stacked bale -->
+            <rect x="20" y="10" width="56" height="30" rx="15" fill="#e0b85e" stroke="#a9842f" stroke-width="2.2"/>
+            <path d="M40 12 Q37 25 41 38 M58 12 Q61 25 57 38" stroke="#bf9540" stroke-width="1.6" fill="none" opacity=".7"/>
+            <g stroke="#e8c46a" stroke-width="1.5" stroke-linecap="round"><path d="M34 10 l-1 -5"/><path d="M48 9 l1 -6"/><path d="M62 10 l2 -5"/></g>
+          </svg>
+        </div>
+        <!-- WATER BUFFALO (ควาย) -->
+        <div class="buffalo" style="left:30%;bottom:1%">
+          <svg viewBox="0 0 150 104" width="128" height="89">
+            <ellipse cx="80" cy="98" rx="56" ry="7" fill="#000" opacity=".2"/>
+            <g fill="#45454d"><rect x="52" y="64" width="9" height="32" rx="4"/><rect x="70" y="66" width="9" height="30" rx="4"/><rect x="104" y="64" width="9" height="32" rx="4"/><rect x="120" y="66" width="9" height="30" rx="4"/></g>
+            <path d="M132 46 Q146 56 138 80" stroke="#45454d" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="138" cy="82" r="4" fill="#34343c"/>
+            <ellipse cx="86" cy="56" rx="48" ry="27" fill="#5a5a64"/>
+            <path d="M52 66 Q86 84 124 70 Q98 78 60 74Z" fill="#48484f" opacity=".7"/>
+            <ellipse cx="80" cy="44" rx="34" ry="15" fill="#646470" opacity=".55"/>
+            <!-- neck + head (left) -->
+            <path d="M46 50 Q24 46 16 62 Q12 76 24 80 Q40 82 48 66Z" fill="#5a5a64"/>
+            <ellipse cx="19" cy="71" rx="10" ry="8" fill="#6c6c78"/>
+            <circle cx="14" cy="69" r="1.5" fill="#26262c"/><circle cx="23" cy="74" r="1.5" fill="#26262c"/>
+            <circle cx="31" cy="57" r="2.6" fill="#16161c"/><circle cx="31.8" cy="56.2" r=".8" fill="#fff" opacity=".8"/>
+            <ellipse cx="42" cy="48" rx="7" ry="4" fill="#48484f" transform="rotate(-22 42 48)"/>
+            <!-- big crescent horns -->
+            <path d="M40 44 Q28 18 2 12 Q24 24 34 46Z" fill="#d2cdc0" stroke="#a9a290" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M48 42 Q60 16 86 10 Q60 22 52 44Z" fill="#d2cdc0" stroke="#a9a290" stroke-width="1.5" stroke-linejoin="round"/>
           </svg>
         </div>
       </div>
@@ -1556,6 +1703,7 @@ body{font-family:'Inter','Segoe UI',Tahoma,sans-serif;background:#060e06;color:#
       <button class="panel-btn-mini" style="background:linear-gradient(135deg,#0277bd,#01579b)" onclick="openFishing()" title="ตกปลา"><span class="mini-ico">🎣</span><span class="mini-lbl">ตกปลา</span></button>
       <button class="panel-btn-mini" style="background:linear-gradient(135deg,#388e3c,#1b5e20)" onclick="openDaily()" title="เดลี่"><span id="daily-red-dot" class="quest-red-dot" style="display:none"></span><span class="mini-ico">🎯</span><span class="mini-lbl">เดลี่</span></button>
       <button class="panel-btn-mini" style="background:linear-gradient(135deg,#d81b60,#ad1457)" onclick="openDeco()" title="ตกแต่ง"><span class="mini-ico">🏡</span><span class="mini-lbl">ตกแต่ง</span></button>
+      <button class="panel-btn-mini" style="background:linear-gradient(135deg,#f9a825,#e65100)" onclick="openWheel()" title="วงล้อนำโชค"><span id="wheel-red-dot" class="quest-red-dot" style="display:none"></span><span class="mini-ico">🎡</span><span class="mini-lbl">วงล้อ</span></button>
       <div class="panel-cat-hdr">ข้อมูล</div>
       <button class="panel-btn-mini pbquest" id="btn-quest" onclick="openQuests()" title="Quests"><span id="quest-red-dot" class="quest-red-dot"></span><span class="mini-ico">📜</span><span class="mini-lbl">QUESTS</span></button>
       <button class="panel-btn-mini pbstat" onclick="openLeaderboard()" title="Rank"><span class="mini-ico">🏆</span><span class="mini-lbl">RANK</span></button>
@@ -2038,10 +2186,12 @@ function _afterLogin(){
   if(ab)ab.style.display=isPremium()?'':'none';
   try{applyUiZoom();}catch(e){}
   try{applyDeco();}catch(e){}
+  try{startDayNight();}catch(e){}
   try{addBottomCloseButtons();}catch(e){}
   try{_checkDailyTasks();updateDailyDot();}catch(e){}
+  try{updateWheelDot();}catch(e){}
   renderAll();
-  addLog('🌻 PVU Farm Simulator — MEGA Edition v6','s');
+  addLog('🐱 คาราแมว FARM — Caramew Edition 🌾','s');
   addLog('👋 ยินดีต้อนรับ '+curUser()+(isPremium()?' 👑 Owner — ฟีเจอร์ครบ':' — Free Mode (กดมือทุกอย่าง)'),'g');
   try{addLog(nextObjectiveText(),'w');}catch(e){}
   // Claim pending gifts
@@ -3911,11 +4061,14 @@ function harvest(i){
   // Dark Shadow Reap: 10% chance to double LE
   if(buffs.dark&&Math.random()<0.1){yld=yld*2;floatNum(i,'👥 ×2!','#ce93d8');}
   G.plots[i]=null;G.harvested++;
+  try{addCombo();}catch(e){}                 // harvest chain → earnLE applies combo bonus
+  const _cb=G.combo||1;
   earnLE(yld);  // earnLE handles its own errors internally — add income BEFORE replant so auto-replant can afford it
   try{if(G.autoReplant&&(kind==='sapling'||kind==='mama'))doReplant(i,kind);}catch(e){console.error('doReplant err:',e);}
-  try{floatNum(i,`+${yld} LE`,'#a5d6a7');addLog(`🌾 ${t('log_harvest')}${i+1}${t('log_earned')}${yld} LE`,'g');}catch(e){}
+  try{const _col=_cb>=4?'#ffd700':_cb>=2?'#ffe082':'#a5d6a7';floatNum(i,`+${yld} LE${_cb>=2?' ⚡'+_cb:''}`,_col);addLog(`🌾 ${t('log_harvest')}${i+1}${t('log_earned')}${yld} LE`,'g');}catch(e){}
   try{sfx('harvest');}catch(e){}
-  try{harvestParticles(i);}catch(e){}
+  try{harvestParticles(i);_juicyCoins(i,_cb);}catch(e){}
+  try{if(_cb>=3)screenShake(_cb>=6?'big':'');}catch(e){}
   try{gainEXP(kind==='mama'?20:10);questProgress('harvest',1);_dailyProgress('harvest');checkAchievements();}catch(e){}
   safeRender();
 }
@@ -4556,6 +4709,149 @@ function applyDeco(){
     grid.classList.remove('skin-gold','skin-neon','skin-wood','skin-crystal','skin-default');
     grid.classList.add('skin-'+(G.deco.plotSkin||'default'));
   }
+}
+// ══ DAY / NIGHT CYCLE ══ (full cycle every 4 min real-time)
+const DN_CYCLE_MS=240000;
+let _dnTimer=null, _dnIsNight=false;
+function _dnPhase(){ return ((Date.now()%DN_CYCLE_MS)/DN_CYCLE_MS + 0.30) % 1; } // start mid-morning
+function applyDayNight(){
+  const phase=_dnPhase();                           // 0=midnight,.25=sunrise,.5=noon,.75=sunset
+  const sunH=Math.sin(2*Math.PI*(phase-0.25));      // -1..1 sun height above horizon
+  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+  const darkness=clamp((0.15-sunH)/0.30,0,1)*0.62;  // 0 day → .62 night
+  const glow=clamp(1-Math.abs(sunH)*4.5,0,1);       // peaks at horizon (dawn/dusk)
+  const veil=document.getElementById('dn-veil');
+  const sunset=document.getElementById('dn-sunset');
+  const stars=document.getElementById('dn-stars');
+  const sun=document.getElementById('dn-sun');
+  const moon=document.getElementById('dn-moon');
+  if(veil)veil.style.opacity=darkness.toFixed(3);
+  if(sunset)sunset.style.opacity=(glow*0.55).toFixed(3);
+  if(stars)stars.style.opacity=(clamp((darkness-0.12)/0.5,0,1)).toFixed(3);
+  // Sun arc: visible across day half (phase .25→.75 → x 0%→100%)
+  if(sun){
+    const sx=clamp((phase-0.22)/0.56,0,1)*88+6;
+    const sy=58-Math.max(0,sunH)*46;
+    sun.style.left=sx.toFixed(1)+'%'; sun.style.top=sy.toFixed(1)+'%';
+    sun.style.opacity=clamp((sunH+0.1)/0.25,0,1).toFixed(2);
+  }
+  // Moon arc: night half (phase shifted by .5)
+  if(moon){
+    const mp=(phase+0.5)%1; const mh=Math.sin(2*Math.PI*(mp-0.25));
+    const mx=clamp((mp-0.22)/0.56,0,1)*84+8;
+    const my=56-Math.max(0,mh)*44;
+    moon.style.left=mx.toFixed(1)+'%'; moon.style.top=my.toFixed(1)+'%';
+    moon.style.opacity=clamp((mh+0.05)/0.25,0,1).toFixed(2);
+  }
+  const ff=document.getElementById('dn-fireflies');
+  if(ff)ff.style.opacity=(clamp((darkness-0.2)/0.4,0,1)*0.9).toFixed(2);
+  _dnIsNight=darkness>0.4;
+}
+const FIREFLY_COLORS=[
+  ['#fff3b0','rgba(255,224,130,.8)'],   // warm gold
+  ['#a0f0ff','rgba(120,230,255,.8)'],   // cyan
+  ['#ffb3e6','rgba(255,140,210,.8)'],   // pink
+  ['#b9ffb0','rgba(140,255,130,.8)'],   // green
+  ['#d8b0ff','rgba(190,130,255,.8)'],   // purple
+  ['#ffd0a0','rgba(255,170,90,.8)']     // orange
+];
+function _buildFireflies(){
+  const ff=document.getElementById('dn-fireflies');if(!ff||ff.children.length)return;
+  let h='';
+  for(let k=0;k<14;k++){
+    const c=FIREFLY_COLORS[k%FIREFLY_COLORS.length];
+    const x=6+Math.random()*88, y=12+Math.random()*56, fd=(7+Math.random()*6).toFixed(1), fb=(1.8+Math.random()*2).toFixed(1);
+    const sz=(4+Math.random()*3).toFixed(1);
+    h+=`<span class="firefly" style="left:${x.toFixed(0)}%;top:${y.toFixed(0)}%;width:${sz}px;height:${sz}px;--fc:${c[0]};--fg:${c[1]};--fd:${fd}s;--fb:${fb}s;animation-delay:-${(Math.random()*5).toFixed(1)}s"></span>`;
+  }
+  ff.innerHTML=h;
+}
+let _critterTimer=null;
+function _spawnCritter(){
+  if(document.hidden)return;
+  if(document.querySelector('.shop-overlay.on,.ach-overlay.on,.wt-overlay.on,.stats-overlay.on'))return; // not during menus
+  const day=['🦋','🐝','🐦','🦋','🐦'], night=['🦇','🦉','🦇'];
+  const pick=(_dnIsNight?night:day)[Math.floor(Math.random()*(_dnIsNight?night:day).length)];
+  const ground=!_dnIsNight&&Math.random()<0.22;
+  const el=document.createElement('div');el.className='critter';el.textContent=ground?(Math.random()<0.5?'🐰':'🐱'):pick;
+  const dur=(ground?(7+Math.random()*3):(9+Math.random()*6));
+  const rtl=!ground&&Math.random()<0.5;
+  if(ground){
+    el.style.cssText=`position:fixed;left:-40px;bottom:6%;font-size:24px;z-index:8;pointer-events:none;animation:critterHop ${dur.toFixed(1)}s linear forwards`;
+  } else {
+    const topPct=8+Math.random()*40;
+    el.style.cssText=`position:fixed;${rtl?'right:-40px':'left:-40px'};top:${topPct.toFixed(0)}%;font-size:${(18+Math.random()*8).toFixed(0)}px;z-index:8;pointer-events:none;animation:${rtl?'critterFlyR':'critterFly'} ${dur.toFixed(1)}s linear forwards`;
+  }
+  document.body.appendChild(el);
+  setTimeout(()=>el&&el.remove(),dur*1000+300);
+}
+function startDayNight(){
+  if(_dnTimer)clearInterval(_dnTimer);
+  _buildFireflies(); applyDayNight(); _dnTimer=setInterval(applyDayNight,1000);
+  if(_critterTimer)clearInterval(_critterTimer);
+  setTimeout(_spawnCritter,2500);
+  _critterTimer=setInterval(()=>{ if(Math.random()<0.7)_spawnCritter(); },11000);
+}
+// ══ 🎡 LUCKY WHEEL ══ (1 free spin/day, extra = 1000 LE)
+const WHEEL_PRIZES=[
+  {ico:'🪙',label:'500 LE',col:'#42a5f5',give:()=>earnLE(500)},
+  {ico:'💎',label:'2 PVU',col:'#ab47bc',give:()=>{G.PVU+=2;}},
+  {ico:'🥫',label:'10 Cans',col:'#26a69a',give:()=>{G.cans+=10;}},
+  {ico:'💰',label:'2,000 LE',col:'#ffca28',give:()=>earnLE(2000)},
+  {ico:'🎯',label:'8 Scarecrow',col:'#8d6e63',give:()=>{G.scarecrows+=8;}},
+  {ico:'🌱',label:'NFT Seed',col:'#66bb6a',give:()=>{G.seeds=(G.seeds||0)+1;}},
+  {ico:'⚡',label:'200 EXP',col:'#ef5350',give:()=>{try{gainEXP(200);}catch(e){}}},
+  {ico:'🎰',label:'JACKPOT!',col:'#f06292',give:()=>{earnLE(10000);try{confettiBurst(70);}catch(e){}}}
+];
+const WHEEL_W=[26,12,16,18,12,6,8,2];
+let _wheelSpinning=false;
+function _wheelPick(){let s=WHEEL_W.reduce((a,b)=>a+b,0),r=Math.random()*s;for(let i=0;i<WHEEL_W.length;i++){r-=WHEEL_W[i];if(r<=0)return i;}return 0;}
+function _wheelSvg(){
+  const N=WHEEL_PRIZES.length,R=100,C=110,seg=360/N;let segs='';
+  for(let i=0;i<N;i++){
+    const a0=(i*seg-90)*Math.PI/180,a1=((i+1)*seg-90)*Math.PI/180;
+    const x0=C+R*Math.cos(a0),y0=C+R*Math.sin(a0),x1=C+R*Math.cos(a1),y1=C+R*Math.sin(a1);
+    segs+=`<path d="M${C} ${C} L${x0.toFixed(1)} ${y0.toFixed(1)} A${R} ${R} 0 0 1 ${x1.toFixed(1)} ${y1.toFixed(1)} Z" fill="${WHEEL_PRIZES[i].col}" stroke="#1a1018" stroke-width="2"/>`;
+    const am=((i+0.5)*seg-90)*Math.PI/180,lx=C+R*0.64*Math.cos(am),ly=C+R*0.64*Math.sin(am);
+    segs+=`<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" font-size="22" text-anchor="middle" dominant-baseline="central">${WHEEL_PRIZES[i].ico}</text>`;
+  }
+  return `<svg viewBox="0 0 220 220" width="100%" style="max-width:260px"><g id="wheel-g" style="transform-origin:110px 110px">${segs}</g><circle cx="110" cy="110" r="17" fill="#1a1018" stroke="#ffd700" stroke-width="3"/><text x="110" y="110" font-size="16" text-anchor="middle" dominant-baseline="central">🎡</text></svg>`;
+}
+function updateWheelDot(){const d=document.getElementById('wheel-red-dot');if(d)d.style.display=(!G.wheel||G.wheel.lastSpin!==_todayStr())?'':'none';}
+function openWheel(){renderWheel();document.getElementById('wheel-ov').classList.add('on');}
+function renderWheel(){
+  const box=document.getElementById('wheel-stage');if(!box)return;
+  if(!document.getElementById('wheel-g'))box.innerHTML=_wheelSvg();
+  if(!G.wheel)G.wheel={lastSpin:'',count:0};
+  const free=G.wheel.lastSpin!==_todayStr();
+  const btn=document.getElementById('wheel-spin-btn');
+  if(btn){btn.disabled=_wheelSpinning;btn.textContent=_wheelSpinning?'🌀 กำลังหมุน...':free?'🎡 หมุนฟรี! (วันนี้)':'🎡 หมุนอีก (1,000 LE)';}
+  const info=document.getElementById('wheel-info');
+  if(info)info.textContent=free?'มีสิทธิ์หมุนฟรี 1 ครั้งวันนี้ 🎁':'หมุนฟรีหมดแล้ว — หมุนเพิ่มครั้งละ 1,000 LE';
+}
+function spinWheel(){
+  if(_wheelSpinning)return;
+  if(!G.wheel)G.wheel={lastSpin:'',count:0};
+  const free=G.wheel.lastSpin!==_todayStr();
+  if(free){G.wheel.lastSpin=_todayStr();}
+  else{if(!spend(1000))return;}
+  G.wheel.count=(G.wheel.count||0)+1;
+  _wheelSpinning=true;renderWheel();updateWheelDot();
+  const idx=_wheelPick(),N=WHEEL_PRIZES.length,seg=360/N;
+  const jitter=(Math.random()-0.5)*seg*0.55;
+  const target=360*6-(idx*seg+seg/2)+jitter;
+  const g=document.getElementById('wheel-g');
+  if(g){g.style.transition='none';g.style.transform='rotate(0deg)';void g.offsetWidth;g.style.transition='transform 4.2s cubic-bezier(.16,.7,.2,1)';g.style.transform=`rotate(${target}deg)`;}
+  try{sfx('click');}catch(e){}
+  setTimeout(()=>{
+    const pr=WHEEL_PRIZES[idx];
+    try{pr.give();}catch(e){}
+    addLog(`🎡 วงล้อนำโชค: ${pr.ico} ${pr.label}!`,'s');
+    toast(`🎡 ได้ ${pr.ico} ${pr.label}!`,'#f9a825');
+    try{sfx('levelup');}catch(e){}
+    if(idx===7){try{screenShake('big');}catch(e){}}
+    _wheelSpinning=false;renderWheel();updateWheelDot();safeRender();
+  },4350);
 }
 function openDeco(){ renderDeco(); document.getElementById('deco-ov').classList.add('on'); }
 function renderDeco(){
@@ -6455,6 +6751,30 @@ function harvestParticles(i){
     setTimeout(()=>el&&el.remove(),800);
   }
 }
+function _juicyCoins(i,combo){
+  const plotEl=document.querySelector('[data-pi="'+i+'"]');
+  if(!plotEl)return;
+  const rc=plotEl.getBoundingClientRect();
+  const cx=rc.left+rc.width/2,cy=rc.top+rc.height/2;
+  const n=Math.min(4+(combo||1),9);
+  for(let k=0;k<n;k++){
+    const el=document.createElement('div');
+    el.className='coin-pop';
+    const dx=(Math.random()-0.5)*70;
+    el.style.cssText='left:'+cx+'px;top:'+cy+'px;--cx:'+dx.toFixed(0)+'px;--cd:'+(0.05*k).toFixed(2)+'s;position:fixed';
+    el.textContent='🪙';
+    document.body.appendChild(el);
+    setTimeout(()=>el&&el.remove(),900);
+  }
+}
+let _shakeT=null;
+function screenShake(big){
+  const gw=document.querySelector('.game-world');if(!gw)return;
+  gw.classList.remove('screen-shake','screen-shake-big');void gw.offsetWidth;
+  gw.classList.add(big==='big'?'screen-shake-big':'screen-shake');
+  if(_shakeT)clearTimeout(_shakeT);
+  _shakeT=setTimeout(()=>gw.classList.remove('screen-shake','screen-shake-big'),420);
+}
 function confettiBurst(count=50){
   const colors=['#ffd700','#ff7043','#4ade80','#29b6f6','#ce93d8','#f06292','#ffee58'];
   for(let k=0;k<count;k++){
@@ -7193,39 +7513,237 @@ initAmbCanvas();
 
 <!-- LOGIN OVERLAY -->
 <div class="login-ov on" id="login-ov">
-  <div class="login-box">
-    <div class="login-logo">🌻 PVU <span style="color:#fff;font-weight:400">FARM</span></div>
-    <div class="login-sub">Simulator — เข้าสู่ระบบเพื่อเล่น</div>
-    <div class="login-tabs">
-      <button type="button" class="login-tab on" data-t="login" onclick="loginTabSwitch('login')">🔐 Login</button>
-      <button type="button" class="login-tab" data-t="reg" onclick="loginTabSwitch('reg')">✨ สมัครใหม่</button>
-    </div>
+  <div class="login-scene">
+    <!-- Floating deco icons around the box -->
+    <span class="ldeco" style="top:-40px;left:14px;animation-delay:0s">🌾</span>
+    <span class="ldeco" style="top:-28px;right:28px;animation-delay:.7s;font-size:15px">⭐</span>
+    <span class="ldeco" style="top:8px;left:-40px;animation-delay:1.4s;font-size:18px">🐾</span>
+    <span class="ldeco" style="bottom:90px;left:-36px;animation-delay:2.1s;font-size:16px">🌽</span>
+    <span class="ldeco" style="bottom:44px;right:-38px;animation-delay:.4s">🌾</span>
+    <span class="ldeco" style="top:55px;right:-40px;animation-delay:1.9s;font-size:17px">🍎</span>
+    <span class="ldeco" style="bottom:118px;right:-36px;animation-delay:2.7s">🐾</span>
+    <span class="ldeco" style="top:-16px;left:50%;margin-left:-10px;animation-delay:3.2s;font-size:14px">✨</span>
+    <span class="ldeco" style="bottom:18px;left:-32px;animation-delay:1.1s;font-size:15px">🚜</span>
 
-    <!-- LOGIN FORM -->
-    <div id="lf-login">
-      <input class="login-inp" id="l-user" placeholder="Username" autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()">
-      <input class="login-inp" id="l-pass" type="password" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
-      <button type="button" class="login-btn" onclick="doLogin()">เข้าสู่ระบบ</button>
-    </div>
+    <div class="login-box">
+      <div class="lb-topline"></div>
+      <div class="lb-bottomline"></div>
+      <span class="lb-corner-bl">✦</span>
+      <span class="lb-corner-br">✦</span>
 
-    <!-- REGISTER FORM -->
-    <div id="lf-reg" style="display:none">
-      <input class="login-inp" id="r-user" placeholder="Username (อย่างน้อย 3 ตัว)" autocomplete="username" onkeydown="if(event.key==='Enter')doRegister()">
-      <input class="login-inp" id="r-pass" type="password" placeholder="Password" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()">
-      <button type="button" class="login-btn" onclick="doRegister()">สร้าง Account</button>
-      <div class="free-limits">
-        <strong>Free Account ได้รับ:</strong><br>
-        ✅ ปลูก / เก็บเกี่ยว (manual)<br>
-        ✅ รดน้ำ / ไล่กา (manual)<br>
-        ✅ ซื้อของใน Shop<br>
-        ❌ Auto Water / Crow / Harvest / Replant<br>
-        ❌ Speed 2× ขึ้นไป<br>
-        ❌ Fertilizer / Star Upgrade
+      <!-- LOGO HEADER -->
+      <div class="login-logo">
+        <!-- Cat mascot medallion SVG (v2 — feathered wings, sharper face) -->
+        <svg class="ll-mascot" viewBox="0 0 140 120" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="llMedBg" cx="50%" cy="38%" r="62%">
+              <stop offset="0%" stop-color="#13506b"/>
+              <stop offset="60%" stop-color="#0a3247"/>
+              <stop offset="100%" stop-color="#03161f"/>
+            </radialGradient>
+            <radialGradient id="llAura" cx="50%" cy="45%" r="55%">
+              <stop offset="0%" stop-color="#ffe9a8" stop-opacity=".55"/>
+              <stop offset="55%" stop-color="#ffb84d" stop-opacity=".18"/>
+              <stop offset="100%" stop-color="#ffb84d" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="llWingG" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0%" stop-color="#b9831e"/>
+              <stop offset="45%" stop-color="#ffd86b"/>
+              <stop offset="100%" stop-color="#fff4cf"/>
+            </linearGradient>
+            <linearGradient id="llGoldRim" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#a9781a"/>
+              <stop offset="35%" stop-color="#ffe57f"/>
+              <stop offset="55%" stop-color="#fff6d8"/>
+              <stop offset="75%" stop-color="#ffe57f"/>
+              <stop offset="100%" stop-color="#a9781a"/>
+            </linearGradient>
+            <radialGradient id="llFur" cx="42%" cy="32%" r="74%">
+              <stop offset="0%" stop-color="#ffe7c4"/>
+              <stop offset="55%" stop-color="#f3b86a"/>
+              <stop offset="100%" stop-color="#e09a3e"/>
+            </radialGradient>
+            <linearGradient id="llHat" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#f4cd6b"/>
+              <stop offset="100%" stop-color="#c8941f"/>
+            </linearGradient>
+            <filter id="llGlow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="1.5" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <g id="llFeather">
+              <path d="M0,0 C-4,-9 -4,-20 0,-28 C4,-20 4,-9 0,0 Z" fill="url(#llWingG)" stroke="#9a6c16" stroke-width=".5"/>
+              <path d="M0,-3 L0,-25" stroke="#fff7da" stroke-width=".7" opacity=".55"/>
+            </g>
+          </defs>
+
+          <!-- Outer glow ring + medallion -->
+          <ellipse cx="70" cy="58" rx="64" ry="54" fill="none" stroke="#c8a432" stroke-width="1" opacity=".22"/>
+          <ellipse cx="70" cy="58" rx="58" ry="49" fill="url(#llMedBg)"/>
+          <ellipse cx="70" cy="58" rx="58" ry="49" fill="none" stroke="url(#llGoldRim)" stroke-width="2.4"/>
+          <ellipse cx="70" cy="58" rx="54" ry="45.5" fill="none" stroke="#1c5a72" stroke-width="1" opacity=".6"/>
+          <!-- Aura behind cat -->
+          <ellipse cx="70" cy="56" rx="40" ry="40" fill="url(#llAura)"/>
+
+          <!-- WINGS (majestic feathered fans, behind cat) -->
+          <g filter="url(#llGlow)">
+            <g transform="translate(54,68)">
+              <use href="#llFeather" transform="rotate(-74) scale(1.2)"/>
+              <use href="#llFeather" transform="rotate(-59) scale(1.4)"/>
+              <use href="#llFeather" transform="rotate(-45) scale(1.5)"/>
+              <use href="#llFeather" transform="rotate(-31) scale(1.42)"/>
+              <use href="#llFeather" transform="rotate(-17) scale(1.22)"/>
+              <use href="#llFeather" transform="rotate(-5) scale(1.0)"/>
+              <use href="#llFeather" transform="rotate(-52) scale(.78)"/>
+              <use href="#llFeather" transform="rotate(-38) scale(.8)"/>
+              <use href="#llFeather" transform="rotate(-24) scale(.74)"/>
+            </g>
+            <g transform="translate(86,68)">
+              <use href="#llFeather" transform="rotate(74) scale(1.2)"/>
+              <use href="#llFeather" transform="rotate(59) scale(1.4)"/>
+              <use href="#llFeather" transform="rotate(45) scale(1.5)"/>
+              <use href="#llFeather" transform="rotate(31) scale(1.42)"/>
+              <use href="#llFeather" transform="rotate(17) scale(1.22)"/>
+              <use href="#llFeather" transform="rotate(5) scale(1.0)"/>
+              <use href="#llFeather" transform="rotate(52) scale(.78)"/>
+              <use href="#llFeather" transform="rotate(38) scale(.8)"/>
+              <use href="#llFeather" transform="rotate(24) scale(.74)"/>
+            </g>
+          </g>
+
+          <!-- Chest / body fluff -->
+          <path d="M70,62 C58,62 50,72 52,86 C56,96 64,99 70,99 C76,99 84,96 88,86 C90,72 82,62 70,62 Z" fill="url(#llFur)" stroke="#c98a32" stroke-width=".7"/>
+          <path d="M70,66 C63,66 58,74 60,85 C63,93 67,95 70,95 C73,95 77,93 80,85 C82,74 77,66 70,66 Z" fill="#fff6e9" opacity=".92"/>
+
+          <!-- Arms + wheat bundle -->
+          <path d="M58,80 C54,86 56,92 62,92 C66,92 68,89 68,86" fill="url(#llFur)" stroke="#c98a32" stroke-width=".7"/>
+          <path d="M82,80 C86,86 84,92 78,92 C74,92 72,89 72,86" fill="url(#llFur)" stroke="#c98a32" stroke-width=".7"/>
+          <g stroke="#9a6c16" stroke-width="1.1" stroke-linecap="round">
+            <line x1="70" y1="92" x2="64" y2="74"/>
+            <line x1="70" y1="92" x2="70" y2="72"/>
+            <line x1="70" y1="92" x2="76" y2="74"/>
+          </g>
+          <g fill="#f4cd6b" stroke="#9a6c16" stroke-width=".5">
+            <ellipse cx="63.5" cy="71" rx="3" ry="6" transform="rotate(-12,63.5,71)"/>
+            <ellipse cx="70" cy="69" rx="3.2" ry="6.4"/>
+            <ellipse cx="76.5" cy="71" rx="3" ry="6" transform="rotate(12,76.5,71)"/>
+          </g>
+          <path d="M66,92 H74" stroke="#7a5413" stroke-width="2" stroke-linecap="round"/>
+
+          <!-- Ears -->
+          <path d="M54,40 L48,23 L64,34 Z" fill="url(#llFur)" stroke="#c98a32" stroke-width=".7"/>
+          <path d="M86,40 L92,23 L76,34 Z" fill="url(#llFur)" stroke="#c98a32" stroke-width=".7"/>
+          <path d="M55,38 L51,28 L62,35 Z" fill="#ff9b9b"/>
+          <path d="M85,38 L89,28 L78,35 Z" fill="#ff9b9b"/>
+
+          <!-- Head -->
+          <ellipse cx="70" cy="52" rx="19" ry="17.5" fill="url(#llFur)" stroke="#c98a32" stroke-width=".8"/>
+          <!-- Tabby forehead stripes -->
+          <g stroke="#b9742a" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".8">
+            <path d="M70,38 L70,46"/>
+            <path d="M65,39 L67,46"/>
+            <path d="M75,39 L73,46"/>
+          </g>
+          <!-- Cheek fluff -->
+          <path d="M51,54 q-4,3 -1,7 q3,-1 4,-4 Z" fill="#fff6e9"/>
+          <path d="M89,54 q4,3 1,7 q-3,-1 -4,-4 Z" fill="#fff6e9"/>
+
+          <!-- Straw hat (tilted) -->
+          <g transform="rotate(-7,70,34)">
+            <ellipse cx="70" cy="36" rx="26" ry="6.5" fill="url(#llHat)" stroke="#a9781a" stroke-width=".9"/>
+            <path d="M49,36 C50,22 60,18 70,18 C80,18 90,22 91,36 Z" fill="url(#llHat)" stroke="#a9781a" stroke-width=".9"/>
+            <ellipse cx="70" cy="18.5" rx="10.5" ry="3" fill="#d9a52e" stroke="#a9781a" stroke-width=".7"/>
+            <path d="M49,34 C58,38 82,38 91,34 L91,37 C82,41 58,41 49,37 Z" fill="#6d4c1c" opacity=".7"/>
+            <line x1="80" y1="30" x2="86" y2="18" stroke="#9a6c16" stroke-width="1"/>
+            <ellipse cx="86.5" cy="16.5" rx="2.2" ry="4.5" fill="#f4cd6b" stroke="#9a6c16" stroke-width=".4" transform="rotate(20,86.5,16.5)"/>
+            <circle cx="58" cy="30" r="2.6" fill="#ff8a80"/>
+            <circle cx="58" cy="30" r="1.2" fill="#ffd740"/>
+          </g>
+
+          <!-- Eyes (cool, upturned, glossy green) -->
+          <path d="M58,52 q5,-5 10,-1 q-5,5 -10,1 Z" fill="#0c3a2a"/>
+          <path d="M82,52 q-5,-5 -10,-1 q5,5 10,1 Z" fill="#0c3a2a"/>
+          <ellipse cx="62.5" cy="51.5" rx="3.4" ry="4.2" fill="#37d28a"/>
+          <ellipse cx="77.5" cy="51.5" rx="3.4" ry="4.2" fill="#37d28a"/>
+          <ellipse cx="62.5" cy="52.2" rx="1.9" ry="3" fill="#06120d"/>
+          <ellipse cx="77.5" cy="52.2" rx="1.9" ry="3" fill="#06120d"/>
+          <circle cx="61.4" cy="50" r="1.1" fill="#fff"/>
+          <circle cx="76.4" cy="50" r="1.1" fill="#fff"/>
+          <circle cx="63.4" cy="53.4" r=".5" fill="#fff" opacity=".7"/>
+          <circle cx="78.4" cy="53.4" r=".5" fill="#fff" opacity=".7"/>
+
+          <!-- Nose + mouth -->
+          <path d="M67.5,57 L72.5,57 L70,59.5 Z" fill="#ff8a80" stroke="#d96a60" stroke-width=".4"/>
+          <path d="M70,59.5 L70,61" stroke="#b9742a" stroke-width=".7"/>
+          <path d="M70,61 q-3,2.5 -5.5,.5" stroke="#b9742a" stroke-width=".8" fill="none" stroke-linecap="round"/>
+          <path d="M70,61 q3,2.5 5.5,.5" stroke="#b9742a" stroke-width=".8" fill="none" stroke-linecap="round"/>
+          <ellipse cx="56" cy="57" rx="4" ry="2.4" fill="#ff9b9b" opacity=".35"/>
+          <ellipse cx="84" cy="57" rx="4" ry="2.4" fill="#ff9b9b" opacity=".35"/>
+          <g stroke="#fff2d8" stroke-width=".7" opacity=".6" stroke-linecap="round" fill="none">
+            <path d="M52,56 q-8,-1 -12,1"/>
+            <path d="M52,59 q-8,1 -12,3"/>
+            <path d="M88,56 q8,-1 12,1"/>
+            <path d="M88,59 q8,1 12,3"/>
+          </g>
+
+          <!-- Sparkles -->
+          <g fill="#fff3bf" filter="url(#llGlow)">
+            <path d="M16,52 l1.3,3.2 3.2,1.3 -3.2,1.3 -1.3,3.2 -1.3,-3.2 -3.2,-1.3 3.2,-1.3 Z"/>
+            <path d="M124,52 l1.1,2.7 2.7,1.1 -2.7,1.1 -1.1,2.7 -1.1,-2.7 -2.7,-1.1 2.7,-1.1 Z"/>
+            <circle cx="26" cy="84" r="1.3"/>
+            <circle cx="114" cy="84" r="1.3"/>
+          </g>
+        </svg>
+
+        <div class="ll-title">คาราแมว</div>
+        <div class="ll-divider"><span class="ll-divider-txt">· · ✦ · ·</span></div>
+        <div class="ll-farm"><span class="ll-wheat">🌾</span><span class="ll-farm-txt">FARM</span><span class="ll-wheat">🌾</span></div>
       </div>
-    </div>
+      <div class="login-sub">🐱 ไร่นาแมวเหมียว · ปลูก เก็บเกี่ยว ลุ้นรางวัล 🌾</div>
 
-    <div class="login-err" id="login-err"></div>
-    <div class="login-note">Save data แยกต่อ account · คลิก username ใน nav เพื่อ logout</div>
+      <div class="login-tabs">
+        <button type="button" class="login-tab on" data-t="login" onclick="loginTabSwitch('login')">🔐 Login</button>
+        <button type="button" class="login-tab" data-t="reg" onclick="loginTabSwitch('reg')">✨ สมัครใหม่</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <div id="lf-login">
+        <div class="login-inp-wrap">
+          <span class="login-inp-icon">🐱</span>
+          <input class="login-inp" id="l-user" placeholder="Username" autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()">
+        </div>
+        <div class="login-inp-wrap">
+          <span class="login-inp-icon">🔑</span>
+          <input class="login-inp" id="l-pass" type="password" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+        </div>
+        <button type="button" class="login-btn" onclick="doLogin()">เข้าสู่ระบบ</button>
+      </div>
+
+      <!-- REGISTER FORM -->
+      <div id="lf-reg" style="display:none">
+        <div class="login-inp-wrap">
+          <span class="login-inp-icon">🐱</span>
+          <input class="login-inp" id="r-user" placeholder="Username (อย่างน้อย 3 ตัว)" autocomplete="username" onkeydown="if(event.key==='Enter')doRegister()">
+        </div>
+        <div class="login-inp-wrap">
+          <span class="login-inp-icon">🔑</span>
+          <input class="login-inp" id="r-pass" type="password" placeholder="Password" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()">
+        </div>
+        <button type="button" class="login-btn" onclick="doRegister()">สร้าง Account</button>
+        <div class="free-limits">
+          <strong>Free Account ได้รับ:</strong><br>
+          ✅ ปลูก / เก็บเกี่ยว (manual)<br>
+          ✅ รดน้ำ / ไล่กา (manual)<br>
+          ✅ ซื้อของใน Shop<br>
+          ❌ Auto Water / Crow / Harvest / Replant<br>
+          ❌ Speed 2× ขึ้นไป<br>
+          ❌ Fertilizer / Star Upgrade
+        </div>
+      </div>
+
+      <div class="login-err" id="login-err"></div>
+      <div class="login-note">Save data แยกต่อ account · คลิก username ใน nav เพื่อ logout</div>
+    </div>
   </div>
 </div>
 
@@ -7327,6 +7845,23 @@ initAmbCanvas();
       <div class="fusion-pick-list" id="fusion-pick-list"></div>
       <button type="button" class="fusion-btn" style="margin-top:10px;background:rgba(255,255,255,.1)" onclick="cancelFusionPick()">← ยกเลิก</button>
     </div>
+  </div>
+</div>
+
+<!-- 🎡 LUCKY WHEEL -->
+<div class="shop-overlay" id="wheel-ov">
+  <div class="ov-header">
+    <div class="ov-title" style="color:#ffca28">🎡 วงล้อนำโชค — Lucky Wheel</div>
+    <button class="ov-close" onclick="closeOv('wheel-ov')">✕</button>
+  </div>
+  <div class="ov-body" style="display:flex;flex-direction:column;align-items:center;text-align:center;max-width:420px;margin:0 auto">
+    <div id="wheel-info" style="font-size:12px;color:rgba(255,255,255,.6);margin-bottom:10px"></div>
+    <div class="wheel-frame">
+      <div class="wheel-pointer">▼</div>
+      <div id="wheel-stage"></div>
+    </div>
+    <button id="wheel-spin-btn" class="wheel-spin-btn" onclick="spinWheel()">🎡 หมุน</button>
+    <div style="font-size:10px;color:rgba(255,255,255,.35);margin-top:10px">หมุนฟรีทุกวัน · ลุ้น JACKPOT 10,000 LE 🎰</div>
   </div>
 </div>
 
