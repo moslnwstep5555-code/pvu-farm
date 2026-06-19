@@ -1048,7 +1048,7 @@ body{font-family:'Inter','Segoe UI',Tahoma,sans-serif;background:#060e06;color:#
 .lb-bottomline{position:absolute;bottom:0;left:38px;right:38px;height:1px;background:linear-gradient(90deg,transparent,rgba(180,148,45,.4),transparent);border-radius:1px;pointer-events:none}
 /* ── Logo ── */
 .login-logo{display:flex;flex-direction:column;align-items:center;gap:4px;margin-bottom:8px}
-.ll-mascot{width:142px;height:122px;display:block;margin:0 auto 2px;filter:drop-shadow(0 5px 16px rgba(0,0,0,.6));animation:catBob 4s ease-in-out infinite}
+.ll-mascot{width:88px;height:76px;display:block;margin:0 auto 2px;filter:drop-shadow(0 0 7px rgba(55,232,255,.55)) drop-shadow(0 4px 12px rgba(0,0,0,.5));animation:catBob 4s ease-in-out infinite}
 .ll-title{font-size:31px;font-weight:900;letter-spacing:2px;line-height:1;background:linear-gradient(160deg,#ffe9a0 0%,#f5c030 28%,#fff5cc 52%,#c89020 78%,#ffe080 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 8px rgba(200,150,20,.55))}
 .ll-divider{display:flex;align-items:center;gap:6px;width:100%;padding:0 10px;box-sizing:border-box}
 .ll-divider::before,.ll-divider::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(180,145,45,.48),transparent)}
@@ -7533,24 +7533,19 @@ initAmbCanvas();
 
       <!-- LOGO HEADER -->
       <div class="login-logo">
-        <!-- Cat mascot medallion SVG (v2 — feathered wings, sharper face) -->
+        <!-- Cat mascot medallion SVG (v3 — 8-bit neon glowing cat) -->
         <svg class="ll-mascot" viewBox="0 0 140 120" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <radialGradient id="llMedBg" cx="50%" cy="38%" r="62%">
-              <stop offset="0%" stop-color="#13506b"/>
-              <stop offset="60%" stop-color="#0a3247"/>
-              <stop offset="100%" stop-color="#03161f"/>
+            <radialGradient id="llMedBg" cx="50%" cy="40%" r="62%">
+              <stop offset="0%" stop-color="#0c3a52"/>
+              <stop offset="60%" stop-color="#072639"/>
+              <stop offset="100%" stop-color="#02121d"/>
             </radialGradient>
-            <radialGradient id="llAura" cx="50%" cy="45%" r="55%">
-              <stop offset="0%" stop-color="#ffe9a8" stop-opacity=".55"/>
-              <stop offset="55%" stop-color="#ffb84d" stop-opacity=".18"/>
-              <stop offset="100%" stop-color="#ffb84d" stop-opacity="0"/>
+            <radialGradient id="llAura" cx="50%" cy="48%" r="55%">
+              <stop offset="0%" stop-color="#7afcff" stop-opacity=".5"/>
+              <stop offset="55%" stop-color="#23c6ff" stop-opacity=".16"/>
+              <stop offset="100%" stop-color="#23c6ff" stop-opacity="0"/>
             </radialGradient>
-            <linearGradient id="llWingG" x1="0" y1="1" x2="0" y2="0">
-              <stop offset="0%" stop-color="#b9831e"/>
-              <stop offset="45%" stop-color="#ffd86b"/>
-              <stop offset="100%" stop-color="#fff4cf"/>
-            </linearGradient>
             <linearGradient id="llGoldRim" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stop-color="#a9781a"/>
               <stop offset="35%" stop-color="#ffe57f"/>
@@ -7558,23 +7553,15 @@ initAmbCanvas();
               <stop offset="75%" stop-color="#ffe57f"/>
               <stop offset="100%" stop-color="#a9781a"/>
             </linearGradient>
-            <radialGradient id="llFur" cx="42%" cy="32%" r="74%">
-              <stop offset="0%" stop-color="#ffe7c4"/>
-              <stop offset="55%" stop-color="#f3b86a"/>
-              <stop offset="100%" stop-color="#e09a3e"/>
-            </radialGradient>
-            <linearGradient id="llHat" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#f4cd6b"/>
-              <stop offset="100%" stop-color="#c8941f"/>
-            </linearGradient>
-            <filter id="llGlow" x="-30%" y="-30%" width="160%" height="160%">
-              <feGaussianBlur stdDeviation="1.5" result="b"/>
-              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            <filter id="llNeon" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="2.6" result="b1"/>
+              <feGaussianBlur in="b1" stdDeviation="2" result="b2"/>
+              <feMerge>
+                <feMergeNode in="b2"/>
+                <feMergeNode in="b1"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
             </filter>
-            <g id="llFeather">
-              <path d="M0,0 C-4,-9 -4,-20 0,-28 C4,-20 4,-9 0,0 Z" fill="url(#llWingG)" stroke="#9a6c16" stroke-width=".5"/>
-              <path d="M0,-3 L0,-25" stroke="#fff7da" stroke-width=".7" opacity=".55"/>
-            </g>
           </defs>
 
           <!-- Outer glow ring + medallion -->
@@ -7582,118 +7569,54 @@ initAmbCanvas();
           <ellipse cx="70" cy="58" rx="58" ry="49" fill="url(#llMedBg)"/>
           <ellipse cx="70" cy="58" rx="58" ry="49" fill="none" stroke="url(#llGoldRim)" stroke-width="2.4"/>
           <ellipse cx="70" cy="58" rx="54" ry="45.5" fill="none" stroke="#1c5a72" stroke-width="1" opacity=".6"/>
-          <!-- Aura behind cat -->
-          <ellipse cx="70" cy="56" rx="40" ry="40" fill="url(#llAura)"/>
+          <!-- Cyan aura behind cat -->
+          <ellipse cx="70" cy="56" rx="42" ry="42" fill="url(#llAura)"/>
 
-          <!-- WINGS (majestic feathered fans, behind cat) -->
-          <g filter="url(#llGlow)">
-            <g transform="translate(54,68)">
-              <use href="#llFeather" transform="rotate(-74) scale(1.2)"/>
-              <use href="#llFeather" transform="rotate(-59) scale(1.4)"/>
-              <use href="#llFeather" transform="rotate(-45) scale(1.5)"/>
-              <use href="#llFeather" transform="rotate(-31) scale(1.42)"/>
-              <use href="#llFeather" transform="rotate(-17) scale(1.22)"/>
-              <use href="#llFeather" transform="rotate(-5) scale(1.0)"/>
-              <use href="#llFeather" transform="rotate(-52) scale(.78)"/>
-              <use href="#llFeather" transform="rotate(-38) scale(.8)"/>
-              <use href="#llFeather" transform="rotate(-24) scale(.74)"/>
-            </g>
-            <g transform="translate(86,68)">
-              <use href="#llFeather" transform="rotate(74) scale(1.2)"/>
-              <use href="#llFeather" transform="rotate(59) scale(1.4)"/>
-              <use href="#llFeather" transform="rotate(45) scale(1.5)"/>
-              <use href="#llFeather" transform="rotate(31) scale(1.42)"/>
-              <use href="#llFeather" transform="rotate(17) scale(1.22)"/>
-              <use href="#llFeather" transform="rotate(5) scale(1.0)"/>
-              <use href="#llFeather" transform="rotate(52) scale(.78)"/>
-              <use href="#llFeather" transform="rotate(38) scale(.8)"/>
-              <use href="#llFeather" transform="rotate(24) scale(.74)"/>
-            </g>
-          </g>
+          <!-- 8-bit pixel cat (built by script below) -->
+          <g id="llPixCat" filter="url(#llNeon)" shape-rendering="crispEdges"></g>
 
-          <!-- Chest / body fluff -->
-          <path d="M70,62 C58,62 50,72 52,86 C56,96 64,99 70,99 C76,99 84,96 88,86 C90,72 82,62 70,62 Z" fill="url(#llFur)" stroke="#c98a32" stroke-width=".7"/>
-          <path d="M70,66 C63,66 58,74 60,85 C63,93 67,95 70,95 C73,95 77,93 80,85 C82,74 77,66 70,66 Z" fill="#fff6e9" opacity=".92"/>
-
-          <!-- Arms + wheat bundle -->
-          <path d="M58,80 C54,86 56,92 62,92 C66,92 68,89 68,86" fill="url(#llFur)" stroke="#c98a32" stroke-width=".7"/>
-          <path d="M82,80 C86,86 84,92 78,92 C74,92 72,89 72,86" fill="url(#llFur)" stroke="#c98a32" stroke-width=".7"/>
-          <g stroke="#9a6c16" stroke-width="1.1" stroke-linecap="round">
-            <line x1="70" y1="92" x2="64" y2="74"/>
-            <line x1="70" y1="92" x2="70" y2="72"/>
-            <line x1="70" y1="92" x2="76" y2="74"/>
-          </g>
-          <g fill="#f4cd6b" stroke="#9a6c16" stroke-width=".5">
-            <ellipse cx="63.5" cy="71" rx="3" ry="6" transform="rotate(-12,63.5,71)"/>
-            <ellipse cx="70" cy="69" rx="3.2" ry="6.4"/>
-            <ellipse cx="76.5" cy="71" rx="3" ry="6" transform="rotate(12,76.5,71)"/>
-          </g>
-          <path d="M66,92 H74" stroke="#7a5413" stroke-width="2" stroke-linecap="round"/>
-
-          <!-- Ears -->
-          <path d="M54,40 L48,23 L64,34 Z" fill="url(#llFur)" stroke="#c98a32" stroke-width=".7"/>
-          <path d="M86,40 L92,23 L76,34 Z" fill="url(#llFur)" stroke="#c98a32" stroke-width=".7"/>
-          <path d="M55,38 L51,28 L62,35 Z" fill="#ff9b9b"/>
-          <path d="M85,38 L89,28 L78,35 Z" fill="#ff9b9b"/>
-
-          <!-- Head -->
-          <ellipse cx="70" cy="52" rx="19" ry="17.5" fill="url(#llFur)" stroke="#c98a32" stroke-width=".8"/>
-          <!-- Tabby forehead stripes -->
-          <g stroke="#b9742a" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".8">
-            <path d="M70,38 L70,46"/>
-            <path d="M65,39 L67,46"/>
-            <path d="M75,39 L73,46"/>
-          </g>
-          <!-- Cheek fluff -->
-          <path d="M51,54 q-4,3 -1,7 q3,-1 4,-4 Z" fill="#fff6e9"/>
-          <path d="M89,54 q4,3 1,7 q-3,-1 -4,-4 Z" fill="#fff6e9"/>
-
-          <!-- Straw hat (tilted) -->
-          <g transform="rotate(-7,70,34)">
-            <ellipse cx="70" cy="36" rx="26" ry="6.5" fill="url(#llHat)" stroke="#a9781a" stroke-width=".9"/>
-            <path d="M49,36 C50,22 60,18 70,18 C80,18 90,22 91,36 Z" fill="url(#llHat)" stroke="#a9781a" stroke-width=".9"/>
-            <ellipse cx="70" cy="18.5" rx="10.5" ry="3" fill="#d9a52e" stroke="#a9781a" stroke-width=".7"/>
-            <path d="M49,34 C58,38 82,38 91,34 L91,37 C82,41 58,41 49,37 Z" fill="#6d4c1c" opacity=".7"/>
-            <line x1="80" y1="30" x2="86" y2="18" stroke="#9a6c16" stroke-width="1"/>
-            <ellipse cx="86.5" cy="16.5" rx="2.2" ry="4.5" fill="#f4cd6b" stroke="#9a6c16" stroke-width=".4" transform="rotate(20,86.5,16.5)"/>
-            <circle cx="58" cy="30" r="2.6" fill="#ff8a80"/>
-            <circle cx="58" cy="30" r="1.2" fill="#ffd740"/>
-          </g>
-
-          <!-- Eyes (cool, upturned, glossy green) -->
-          <path d="M58,52 q5,-5 10,-1 q-5,5 -10,1 Z" fill="#0c3a2a"/>
-          <path d="M82,52 q-5,-5 -10,-1 q5,5 10,1 Z" fill="#0c3a2a"/>
-          <ellipse cx="62.5" cy="51.5" rx="3.4" ry="4.2" fill="#37d28a"/>
-          <ellipse cx="77.5" cy="51.5" rx="3.4" ry="4.2" fill="#37d28a"/>
-          <ellipse cx="62.5" cy="52.2" rx="1.9" ry="3" fill="#06120d"/>
-          <ellipse cx="77.5" cy="52.2" rx="1.9" ry="3" fill="#06120d"/>
-          <circle cx="61.4" cy="50" r="1.1" fill="#fff"/>
-          <circle cx="76.4" cy="50" r="1.1" fill="#fff"/>
-          <circle cx="63.4" cy="53.4" r=".5" fill="#fff" opacity=".7"/>
-          <circle cx="78.4" cy="53.4" r=".5" fill="#fff" opacity=".7"/>
-
-          <!-- Nose + mouth -->
-          <path d="M67.5,57 L72.5,57 L70,59.5 Z" fill="#ff8a80" stroke="#d96a60" stroke-width=".4"/>
-          <path d="M70,59.5 L70,61" stroke="#b9742a" stroke-width=".7"/>
-          <path d="M70,61 q-3,2.5 -5.5,.5" stroke="#b9742a" stroke-width=".8" fill="none" stroke-linecap="round"/>
-          <path d="M70,61 q3,2.5 5.5,.5" stroke="#b9742a" stroke-width=".8" fill="none" stroke-linecap="round"/>
-          <ellipse cx="56" cy="57" rx="4" ry="2.4" fill="#ff9b9b" opacity=".35"/>
-          <ellipse cx="84" cy="57" rx="4" ry="2.4" fill="#ff9b9b" opacity=".35"/>
-          <g stroke="#fff2d8" stroke-width=".7" opacity=".6" stroke-linecap="round" fill="none">
-            <path d="M52,56 q-8,-1 -12,1"/>
-            <path d="M52,59 q-8,1 -12,3"/>
-            <path d="M88,56 q8,-1 12,1"/>
-            <path d="M88,59 q8,1 12,3"/>
-          </g>
-
-          <!-- Sparkles -->
-          <g fill="#fff3bf" filter="url(#llGlow)">
-            <path d="M16,52 l1.3,3.2 3.2,1.3 -3.2,1.3 -1.3,3.2 -1.3,-3.2 -3.2,-1.3 3.2,-1.3 Z"/>
-            <path d="M124,52 l1.1,2.7 2.7,1.1 -2.7,1.1 -1.1,2.7 -1.1,-2.7 -2.7,-1.1 2.7,-1.1 Z"/>
-            <circle cx="26" cy="84" r="1.3"/>
-            <circle cx="114" cy="84" r="1.3"/>
+          <!-- Neon pixel sparkles -->
+          <g fill="#bff8ff" filter="url(#llNeon)" shape-rendering="crispEdges">
+            <rect x="20" y="40" width="3" height="3"/>
+            <rect x="116" y="44" width="3" height="3"/>
+            <rect x="24" y="86" width="2.6" height="2.6"/>
+            <rect x="113" y="84" width="2.6" height="2.6"/>
           </g>
         </svg>
+        <script>(function(){
+          var g=document.getElementById('llPixCat'); if(!g||g.childNodes.length)return;
+          var map=[
+            "..B.......B..",
+            "..BB.....BB..",
+            "..BIB...BIB..",
+            "..BBBBBBBBB..",
+            "..BBBBBBBBB..",
+            "..BEEBBBEEB..",
+            "..BEEBBBEEB..",
+            "..BBBBNBBBB..",
+            "..BBBBBBBBB..",
+            "...BBBBBBB...",
+            "...BBBBBBB...",
+            "..BBBBBBBBB..",
+            ".BBBBBBBBBBB.",
+            ".BBBBBBBBBBB.",
+            "..BBB...BBB.."
+          ];
+          var P=5, x0=37.5, y0=20.5;
+          var col={B:'#3df0ff',I:'#ff86d4',E:'#ffe24d',N:'#ff86d4'};
+          var ns='http://www.w3.org/2000/svg';
+          for(var r=0;r<map.length;r++){var row=map[r];
+            for(var c=0;c<row.length;c++){var ch=row.charAt(c); if(ch==='.'||ch===' ')continue;
+              var rc=document.createElementNS(ns,'rect');
+              rc.setAttribute('x',(x0+c*P).toFixed(2));
+              rc.setAttribute('y',(y0+r*P).toFixed(2));
+              rc.setAttribute('width',(P+0.4).toFixed(2));
+              rc.setAttribute('height',(P+0.4).toFixed(2));
+              rc.setAttribute('fill',col[ch]||'#3df0ff');
+              g.appendChild(rc);
+            }
+          }
+        })();</script>
 
         <div class="ll-title">คาราแมว</div>
         <div class="ll-divider"><span class="ll-divider-txt">· · ✦ · ·</span></div>
